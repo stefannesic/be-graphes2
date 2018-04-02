@@ -1,0 +1,19 @@
+!SESSION 2018-03-23 08:32:24.485 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_151
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-03-23 08:32:32.386
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui.ide 4 4 2018-03-23 08:36:11.006
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2018-03-23 08:36:11.012
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2018-03-23 08:36:11.013
+!MESSAGE The project description file (.project) for 'be-graphes' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2018-03-23 08:36:11.013
+!MESSAGE The project description file (.project) for 'be-graphes2' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
