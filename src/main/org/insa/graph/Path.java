@@ -2,6 +2,7 @@ package org.insa.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,12 +47,49 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        
+        //testing if nodes is null
+        if(nodes.isEmpty()) {
+        	return new Path(graph);
+        }
+        
+        //testing if there is only 1 node
+        if(nodes.size() == 1) {
+        	return new Path(graph, nodes.get(0));
+        }
+        
+        Node origin = nodes.get(0);
+        //iterating over remaining nodes
+        for(int i = 1; i < nodes.size(); i++) {
+        	Node n = nodes.get(i);
+        	//test is the length of an arc
+            double test = -1;
+            //arc which is the fastest path from nodes successors
+            Arc a_garder = null;
+        	for(Arc a: origin) {
+        		//if successors leads to n
+        		if(a.getDestination() == n) {
+        			double shortest = a.getLength();
+        			//testing if length is shorter then current shortest
+        			if(test == -1 || shortest < test) {
+        				a_garder = a;
+        				test = shortest;
+        			}
+        		}
+        	}
+        	//throwing exception if test is -1 ie nodes not valid
+        	if(test == -1) {
+        		throw new IllegalArgumentException();
+        	}
+        	else {
+        		arcs.add(a_garder);
+        	}
+        	origin = n;
+        }
         return new Path(graph, arcs);
     }
 
