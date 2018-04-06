@@ -225,7 +225,6 @@ public class Path {
      * 
      */
     public double getTravelTime(double speed) {
-        // TODO:
         return 3600*((this.getLength()/1000)/speed);
     }
 
