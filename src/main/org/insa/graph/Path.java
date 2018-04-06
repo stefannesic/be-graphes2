@@ -195,7 +195,6 @@ public class Path {
      * 
      */
     public boolean isValid() {
-        // TODO:
     	List<Arc> arcs = this.getArcs();
     	if(this.isEmpty()) {
     		return true;
@@ -236,7 +235,6 @@ public class Path {
      * 
      */
     public double getTravelTime(double speed) {
-        // TODO:
         return 3600*((this.getLength()/1000)/speed);
     }
 
@@ -246,11 +244,14 @@ public class Path {
      * 
      * @return Minimum travel time to travel this path (in seconds).
      * 
-     * @deprecated Need to be implemented.
      */
     public double getMinimumTravelTime() {
-        // TODO:
-        return 0;
+    	List<Arc> arcs = this.getArcs();
+    	double resultat = 0;
+    	for(Arc a: arcs) {
+			resultat += a.getMinimumTravelTime();
+    	}
+        return resultat;
     }
 
 }
