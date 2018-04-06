@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import java.util.Iterator;
+
 /**
  * Class representing a path between nodes in a graph.
  * 
@@ -24,13 +26,57 @@ public class Path {
      * 
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
-     * 
-     * @deprecated Need to be implemented.
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
+    	
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        
+        if (nodes.isEmpty()) {
+        	return new Path(graph);
+        }
+        
+        // start iterating nodes by removing a node from the list 
+        Node norigin = nodes.get(0);
+        
+        // check if only one node is in the list
+        
+        if (nodes.size() == 1) 
+        	return new Path(graph, norigin);
+        
+        // iterate over the remaining nodes
+        for (int i = 1; i < nodes.size(); i++) {
+        	Node n = nodes.get(i);
+        	// tt is the travel time of an arc
+        	double tt = -1;
+        	// a_garder is the arc from a node's successors that is the fastest path
+        	Arc a_garder = null;
+        	// iterate over the successors of norigin
+        	Iterator<Arc> successors = norigin.iterator();
+        	
+        	while (successors.hasNext()) {
+        		Arc a = successors.next();
+        		// if the successor leads to the node n
+        		if (a.getDestination() == n) {
+        			double a_tt = a.getMinimumTravelTime();
+        			// if the travel time over this arc is smaller than tt or if it is the first such arc
+        			if (tt == -1 || a_tt < tt) {
+        				a_garder = a;
+        				tt = a_tt;
+        			}
+        		}
+        	}
+        	// no successor arcs lead to the node n, exception is thrown
+        	if (tt == -1) {
+        		throw new IllegalArgumentException();
+        	} // otherwise we add the successor with the shortest travel time
+        	else {
+        		arcs.add(a_garder);
+        	}
+        	// norigin becomes the current node for the next iteration
+        	norigin = n;
+        }
+        
         return new Path(graph, arcs);
     }
 
@@ -195,7 +241,6 @@ public class Path {
      * 
      */
     public boolean isValid() {
-        // TODO:
     	List<Arc> arcs = this.getArcs();
     	if(this.isEmpty()) {
     		return true;

@@ -145,7 +145,7 @@ public class PathTest {
         assertEquals(longLoopPath.getTravelTime(28.8), 15, 1e-6);
     }
 
-    @Test
+	@Test
     public void testGetMinimumTravelTime() {
         assertEquals(emptyPath.getMinimumTravelTime(), 0, 1e-4);
         assertEquals(singleNodePath.getLength(), 0, 1e-4);
