@@ -9,6 +9,7 @@ import org.insa.graph.Arc;
 import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.graph.Path;
+import org.insa.graph.Label;
 
 public class BellmanFordAlgorithm extends ShortestPathAlgorithm {
 
@@ -22,6 +23,7 @@ public class BellmanFordAlgorithm extends ShortestPathAlgorithm {
 		// Retrieve the graph.
 		ShortestPathData data = getInputData();
 		Graph graph = data.getGraph();
+
 
 		final int nbNodes = graph.size();
 
