@@ -66,14 +66,17 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      		// mark the minimum node
      		xLabel.setMarque();
      		
-     		// notify that we have reached it 
-     		notifyNodeReached(xLabel.getSommetCourant());
+     		// notify that we have marked it 
+     		notifyNodeMarked(xLabel.getSommetCourant());
      		
      		
      		// iterate over successors
      		for (Arc arc : xLabel.getSommetCourant()) {
      			// get the successor node
      			Node y = arc.getDestination();
+     			
+         		// notify that we have reached it 
+         		notifyNodeReached(xLabel.getSommetCourant());
      			
      			Label yLabel = labels.get(y.getId());
      			if (!yLabel.getMarque()) {
