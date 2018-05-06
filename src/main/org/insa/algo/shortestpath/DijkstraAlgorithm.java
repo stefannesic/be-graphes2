@@ -1,7 +1,7 @@
 package org.insa.algo.shortestpath;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collections;
 
 
@@ -55,7 +55,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      	
      	// we have to visit each node, and stop the algorithm if
      	// ...no predecessors are found
-     	while (countMarques < nbNodes || !heap.isEmpty()) {
+     	while (countMarques < nbNodes && !heap.isEmpty()) {
      		countMarques++;
      		
 

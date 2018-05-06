@@ -9,7 +9,7 @@ import org.insa.graph.Arc;
 import org.insa.graph.Graph;
 import org.insa.graph.Node;
 import org.insa.graph.Path;
-import org.insa.graph.Label;
+//import org.insa.graph.Label;
 
 public class BellmanFordAlgorithm extends ShortestPathAlgorithm {
 
