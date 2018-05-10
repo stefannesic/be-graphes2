@@ -82,7 +82,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      			if (!yLabel.getMarque()) {
      				double yCout = yLabel.getCout();
      				double xCout = xLabel.getCout();
-     				yLabel.setCout(Math.min(yCout, xCout + arc.getLength()));
+     				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
      				if (yLabel.getCout() != yCout) {
      					// insert node in heap and set the father parameter

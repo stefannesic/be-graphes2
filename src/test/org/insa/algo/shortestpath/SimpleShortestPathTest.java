@@ -63,6 +63,7 @@ public class SimpleShortestPathTest {
         List<ArcInspector> filters = ArcInspectorFactory.getAllFilters();
         ArcInspector arcI = filters.get(0);
 		
+        //matrix used to store all our results and display them in table form
         String [][] results = new String[nodes.length+1][nodes.length+1];
         String s = "";
         
@@ -91,6 +92,7 @@ public class SimpleShortestPathTest {
 	            		}
 	            		//comparing the results of the two algorithms
 	            		assertEquals(dijkstraCost, bellmanFordCost);
+	            		
 	            		String strng = Integer.toString(dijkstraCost);
 	            		results[j+1][k+1] = strng;
             		}
