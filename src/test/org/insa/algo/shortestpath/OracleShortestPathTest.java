@@ -3,8 +3,11 @@ package org.insa.algo.shortestpath;
 import static org.junit.Assert.*;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +40,40 @@ public class OracleShortestPathTest {
     @BeforeClass
     public static void initAll() throws IOException {
     	
-    	mapName = "/home/stefan/Documents/Bac+3/BE_Graphes/europe/france/haute-garonne.mapgr";
+    	// The name of the file to open.
+        String fileName = "path-location.txt";
+
+        // This will reference one line at a time
+        String line = null;
+
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader = 
+                new FileReader(fileName);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader = 
+                new BufferedReader(fileReader);
+
+            if ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }   
+
+            // Always close files.
+            bufferedReader.close();         
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                "Unable to open file '" + 
+                fileName + "'");                
+        }
+        catch(IOException ex) {
+            System.out.println(
+                "Error reading file '" 
+                + fileName + "'");                  
+        }
+    	
+    	mapName = line+"europe/france/haute-garonne.mapgr";
     	
     	reader = new BinaryGraphReader(
                 new DataInputStream(new BufferedInputStream(new FileInputStream(mapName))));
@@ -83,6 +119,7 @@ public class OracleShortestPathTest {
     		assertEquals(dijkstraCost, bellmanFordCost);
     		
 		}
+		
 	    
 	}
 
