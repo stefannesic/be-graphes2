@@ -61,7 +61,11 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
      		// retrieve minimum cost node
      		Label xLabel = heap.deleteMin();
-     	
+     		
+     		//if current node is destination, we stop
+ 			if(xLabel.getSommetCourant() == data.getDestination()) {
+ 				countMarques = nbNodes;
+ 			}
      		
      		// mark the minimum node
      		xLabel.setMarque();
