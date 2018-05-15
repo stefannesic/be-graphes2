@@ -16,3 +16,6 @@ doc
 *.mapgr
 *.path
 *.tgz
+
+# Location of file path
+path-location.txt
