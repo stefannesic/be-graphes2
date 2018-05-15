@@ -79,6 +79,11 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      			// get the successor node
      			Node y = arc.getDestination();
      			
+     			// Small test to check allowed roads...
+				if (!data.isAllowed(arc)) {
+					continue;
+				}
+     			
          		// notify that we have reached it 
          		notifyNodeReached(xLabel.getSommetCourant());
      			
