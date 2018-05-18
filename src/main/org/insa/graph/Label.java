@@ -4,13 +4,13 @@ package org.insa.graph;
 import java.util.ArrayList;
 
 public class Label implements Comparable<Label> {
-	private boolean marque;
-	private Node sommet_courant;
-	private Node pere;
-	private double cout;
+	protected boolean marque;
+	protected Node sommet_courant;
+	protected Node pere;
+	protected double cout;
 	
 	// arc between father and son node
-	private Arc arc;
+	protected Arc arc;
 	
 	public Label(boolean marque, Node sommet_courant, Node pere, double cout) {
 		this.marque = marque;
@@ -66,7 +66,7 @@ public class Label implements Comparable<Label> {
 	
 	
 	public int compareTo(Label other) {
-		return Double.compare(this.cout, other.cout);
+		return Double.compare(this.getCout(), other.getCout());
 	}
 	
 	
