@@ -3,6 +3,7 @@ package org.insa.algo.shortestpath;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.insa.algo.AbstractInputData.Mode;
 import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.BinaryHeap;
 import org.insa.graph.Arc;
@@ -40,15 +41,16 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     	final int nbNodes = graph.size();
 
         // Notify observers about the first event (origin processed).
-     	notifyOriginProcessed(data.getOrigin());	
+     	notifyOriginProcessed(data.getOrigin());	  	
      	
      	// initialize algorithm
-     	
-     	// set the cost of the origin node to 0
-     	
-     	// get Label of origin
      	LabelStar.setDest(data.getDestination());
+     	// for shortest time, set maximum speed in order to have lower bound
+     	if (data.getMode() == Mode.TIME) 
+     		LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());	
+    	// get Label of origin
      	LabelStar oLabel = labels.get(data.getOrigin().getId());
+     	// set the cost of the origin node to 0
      	oLabel.setCout(0);  	
      	
      	// add origin to heap
