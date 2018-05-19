@@ -8,7 +8,6 @@ public class LabelStar extends Label implements Comparable<Label>  {
 	}
 	// get cost redefined to include destination cost for A* algorithm
 	public double getCout() {
-		System.out.println("Point is : "+this.sommet_courant.getPoint());
 		return this.cout+Point.distance(this.sommet_courant.getPoint(), LabelStar.dest.getPoint())/maxSpeed;
 	}
 	
