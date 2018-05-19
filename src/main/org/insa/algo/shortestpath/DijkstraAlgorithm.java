@@ -55,15 +55,21 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      	
      	// we have to visit each node, and stop the algorithm if
      	// ...no predecessors are found
-     	while (countMarques < nbNodes && !heap.isEmpty()) {
+     	while (countMarques < nbNodes /*&& !heap.isEmpty()*/) {
      		countMarques++;
      		
 
      		// retrieve minimum cost node
      		Label xLabel = heap.deleteMin();
+
+     		
+     		
+     		if (heap.isEmpty())
+     			System.out.println("HEAP EMPTY");
      		
      		//if current node is destination, we stop
  			if(xLabel.getSommetCourant() == data.getDestination()) {
+ 				System.out.println("DESTINATION REACHED");
  				countMarques = nbNodes;
  			}
      		
@@ -88,12 +94,18 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
          		notifyNodeReached(xLabel.getSommetCourant());
      			
      			Label yLabel = labels.get(y.getId());
+     			
      			if (!yLabel.getMarque()) {
      				double yCout = yLabel.getCout();
      				double xCout = xLabel.getCout();
+     				
      				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
      				if (yLabel.getCout() != yCout) {
+     					// remove yLabel if already in heap
+     					if (yCout != Double.POSITIVE_INFINITY)
+     						heap.remove(yLabel);
+     					
      					// insert node in heap and set the father parameter
      					yLabel.setPere(xLabel.getSommetCourant());
      					
