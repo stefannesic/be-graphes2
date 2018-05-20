@@ -80,7 +80,7 @@ public class OracleAStarTest {
     	
     }
 
-    /*@Test
+    @Test
 	public void NoFilterTest() {
     	//defining the roads and type of evaluation for our scenario
 		List<ArcInspector> filters = ArcInspectorFactory.getAllFilters();
@@ -206,7 +206,7 @@ public class OracleAStarTest {
     		assertEquals(aStarCost, bellmanFordCost);
     		
 		}
-	}*/
+	}
 
 	@Test
 	public void OnlyCarsTimeTest() {
@@ -252,7 +252,7 @@ public class OracleAStarTest {
 		}
 	}
 
-	/*@Test
+	@Test
 	public void PedestrianTimeTest() {
 		//defining the roads and type of evaluation for our scenario
 		List<ArcInspector> filters = ArcInspectorFactory.getAllFilters();
@@ -292,5 +292,5 @@ public class OracleAStarTest {
 			//comparing the results of the two algorithms
 			assertEquals(aStarCost, bellmanFordCost);			
 		}
-	}*/
+	}
 }

@@ -21,8 +21,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
     @Override
     protected ShortestPathSolution doRun() {
-   
-    	
+       	
     	// variable when all nodes are marked
     	int countMarques = 0;
     	
@@ -96,22 +95,18 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
      				if (yLabel.getCout() != yCout) {
-     					// remove yLabel if already in heap
-     					if (yCout != Double.POSITIVE_INFINITY)
-     						heap.remove(yLabel);
-     					
-     					// insert node in heap and set the father parameter
+     					// insert node in heap	 	
+     					if (yCout == Double.POSITIVE_INFINITY) {
+     						heap.insert(yLabel);
+     					}
+     					//set the father parameter
      					yLabel.setPere(xLabel.getSommetCourant());
      					
      					// set father arc
      					yLabel.setArc(arc);
-     					heap.insert(yLabel);
-     				}
-     				
-     			}
-     			
-     		}
-     		
+     				}     				
+     			}     			
+     		}     		
      	}
         // The destination has been found, notify the observers.
      	notifyDestinationReached(data.getDestination());		

@@ -93,23 +93,21 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      			
      			LabelStar yLabel = labels.get(y.getId());
      			// set destination cost for Label
-
      			
      			if (!yLabel.getMarque()) {
      				double yCout = yLabel.getCoutSansDest();
      				double xCout = xLabel.getCoutSansDest();
      				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
-     				if (yLabel.getCoutSansDest() != yCout) {
-     				    // remove yLabel if already in heap
-     					if (yCout != Double.POSITIVE_INFINITY)
-     						heap.remove(yLabel);
-     					// insert node in heap and set the father parameter
-     					yLabel.setPere(xLabel.getSommetCourant());
-     					
+     				if (yLabel.getCoutSansDest() != yCout) { 
+     					// insert node in heap
+     					if (yCout == Double.POSITIVE_INFINITY) {
+     						heap.insert(yLabel);
+     					}     					
+     					// set the father parameter	
+     					yLabel.setPere(xLabel.getSommetCourant());     					
      					// set father arc
      					yLabel.setArc(arc);
-     					heap.insert(yLabel);
      				}
      				
      			}
