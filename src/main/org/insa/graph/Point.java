@@ -41,6 +41,26 @@ public final class Point {
         this.longitude = longitude;
         this.latitude = latitude;
     }
+    
+    /**
+     * Calculate midpoint between two points.
+     */
+    public static Point midPoint(Point p1, Point p2) {
+    	Point result;
+    	//Bx = cos(lat2) * cos(lon2-lon1);
+    	//By = cos(lat2) * sin(lon2-lon1);
+    	double Bx = Math.cos(Math.toRadians(p2.getLatitude())) * Math.cos(Math.toRadians(p2.getLongitude()) - Math.toRadians(p1.getLongitude()));
+    	double By = Math.cos(Math.toRadians(p2.getLatitude())) * Math.sin(Math.toRadians(p2.getLongitude()) - Math.toRadians(p1.getLongitude()));
+    	/*latMid = atan2(sin(lat1) + sin(lat2), ...
+               sqrt( (cos(lat1)+Bx)*(cos(lat1)+Bx) + By*By ) );
+		lonMid = lon1 + atan2(By, cos(lat1) + Bx);*/
+    	float latMid;
+    	float lonMid;
+    	latMid = (float)Math.atan2(Math.sin(Math.toRadians(p1.getLatitude() + Math.toRadians(p2.getLatitude()))), Math.sqrt((Math.cos(Math.toRadians(p1.getLatitude()))+Bx)*(Math.cos(Math.toRadians(p1.getLatitude()))+Bx) + By*By ));
+    	lonMid = p1.getLongitude() + (float)Math.atan2(By, (Math.cos(Math.toRadians(p1.getLatitude())) + Bx));
+    	result = new Point(lonMid, latMid);
+    	return result;
+    }
 
     /**
      * @return Longitude of this point (in degrees).

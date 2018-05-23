@@ -8,6 +8,7 @@ import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.BinaryHeap;
 import org.insa.graph.Arc;
 import org.insa.graph.Graph;
+import org.insa.graph.GraphStatistics;
 import org.insa.graph.Label;
 import org.insa.graph.LabelStar;
 import org.insa.graph.Node;
@@ -46,8 +47,14 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      	// initialize algorithm
      	LabelStar.setDest(data.getDestination());
      	// for shortest time, set maximum speed in order to have lower bound
-     	if (data.getMode() == Mode.TIME) 
-     		LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());	
+     	if (data.getMode() == Mode.TIME) {
+     		if (graph.getGraphInformation().getMaximumSpeed() != GraphStatistics.NO_MAXIMUM_SPEED) 
+     			LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());
+ 		} 
+     	else {
+     		LabelStar.setMaxSpeed(1);
+     	}
+     			
     	// get Label of origin
      	LabelStar oLabel = labels.get(data.getOrigin().getId());
      	// set the cost of the origin node to 0
