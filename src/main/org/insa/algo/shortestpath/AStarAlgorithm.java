@@ -8,6 +8,7 @@ import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.BinaryHeap;
 import org.insa.graph.Arc;
 import org.insa.graph.Graph;
+import org.insa.graph.GraphStatistics;
 import org.insa.graph.Label;
 import org.insa.graph.LabelStar;
 import org.insa.graph.Node;

@@ -1,8 +1,8 @@
 package org.insa.graph;
 
 public class LabelStar extends Label implements Comparable<Label>  {
-	private static Node dest;
-	private static int maxSpeed = 1;
+	protected static Node dest;
+	protected static int maxSpeed = 1;
 	public LabelStar(boolean marque, Node sommet_courant, Node pere, double cout) {
 		super(marque, sommet_courant, pere, cout);
 	}
