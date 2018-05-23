@@ -64,9 +64,18 @@ public class Label implements Comparable<Label> {
 		return this.marque;
 	}
 	
+	// get total cost
+	public double getCoutTotal() {
+		return this.cout;
+	}
+	
 	
 	public int compareTo(Label other) {
-		return Double.compare(this.getCout(), other.getCout());
+		return Double.compare(this.getCoutTotal(), other.getCoutTotal());
+		/*if (x == 0) 
+			return Double.compare(this.getCoutSansDest(), other.getCoutSansDest());
+		else
+			return x;*/
 	}
 	
 	

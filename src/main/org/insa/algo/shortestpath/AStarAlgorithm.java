@@ -46,8 +46,12 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      	// initialize algorithm
      	LabelStar.setDest(data.getDestination());
      	// for shortest time, set maximum speed in order to have lower bound
-     	if (data.getMode() == Mode.TIME) 
-     		LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());	
+     	if (data.getMode() == Mode.TIME) {
+     		LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());
+     		System.out.println("Max speed is "+graph.getGraphInformation().getMaximumSpeed());
+     	}
+     	else 
+     		LabelStar.setMaxSpeed(1);
     	// get Label of origin
      	LabelStar oLabel = labels.get(data.getOrigin().getId());
      	// set the cost of the origin node to 0
@@ -95,15 +99,16 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      			// set destination cost for Label
      			
      			if (!yLabel.getMarque()) {
-     				double yCout = yLabel.getCoutSansDest();
-     				double xCout = xLabel.getCoutSansDest();
+     				double yCout = yLabel.getCout();
+     				double xCout = xLabel.getCout();
      				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
-     				if (yLabel.getCoutSansDest() != yCout) { 
+     				
+     				if (yLabel.getCout() != yCout) { 
      					// insert node in heap
      					if (yCout == Double.POSITIVE_INFINITY) {
      						heap.insert(yLabel);
-     					}     					
+     					} 
      					// set the father parameter	
      					yLabel.setPere(xLabel.getSommetCourant());     					
      					// set father arc
