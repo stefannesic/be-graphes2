@@ -45,13 +45,12 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      	
      	// initialize algorithm
      	LabelStar.setDest(data.getDestination());
-     	// for shortest time, set maximum speed in order to have lower bound
-     	if (data.getMode() == Mode.TIME) {
+     	
+     	if (data.getMode() == Mode.TIME)
      		LabelStar.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());
-     		System.out.println("Max speed is "+graph.getGraphInformation().getMaximumSpeed());
-     	}
-     	else 
+     	else
      		LabelStar.setMaxSpeed(1);
+     	
     	// get Label of origin
      	LabelStar oLabel = labels.get(data.getOrigin().getId());
      	// set the cost of the origin node to 0
@@ -70,17 +69,18 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      		// retrieve minimum cost node
      		LabelStar xLabel = (LabelStar)heap.deleteMin();
      		
-     		//if current node is destination, we stop
- 			if(xLabel.getSommetCourant() == data.getDestination()) {
- 				countMarques = nbNodes;
- 			}
-     		
      		// mark the minimum node
      		xLabel.setMarque();
      		
      		// notify that we have marked it 
      		notifyNodeMarked(xLabel.getSommetCourant());
-     		
+     		     		
+     		//if current node is destination, we stop
+ 			if(xLabel.getSommetCourant() == data.getDestination()) {
+ 				countMarques = nbNodes;
+ 				continue;
+ 			}
+ 			     		
      		
      		// iterate over successors
      		for (Arc arc : xLabel.getSommetCourant()) {
@@ -101,20 +101,31 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      			if (!yLabel.getMarque()) {
      				double yCout = yLabel.getCout();
      				double xCout = xLabel.getCout();
-     				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
+     				double minCost = Math.min(yCout, xCout + data.getCost(arc));
      				
      				
-     				if (yLabel.getCout() != yCout) { 
+     				if (minCost != yCout) { 
      					// insert node in heap
      					if (yCout == Double.POSITIVE_INFINITY) {
+     						// set the father parameter	
+         					yLabel.setPere(xLabel.getSommetCourant());     					
+         					// set father arc
+         					yLabel.setArc(arc);
+         					yLabel.setCout(minCost);
      						heap.insert(yLabel);
-     					} 
-     					// set the father parameter	
-     					yLabel.setPere(xLabel.getSommetCourant());     					
-     					// set father arc
-     					yLabel.setArc(arc);
+     					} else {
+     						heap.remove(yLabel);
+     						// set the father parameter	
+     						yLabel.setPere(xLabel.getSommetCourant());     					
+     						// set father arc
+     						yLabel.setArc(arc);
+     						yLabel.setCout(minCost);
+     						heap.insert(yLabel);
+     						
+     					}
+     	
      				}
-     				
+     				     				
      			}
      			
      		}

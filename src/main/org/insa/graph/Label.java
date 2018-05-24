@@ -71,11 +71,11 @@ public class Label implements Comparable<Label> {
 	
 	
 	public int compareTo(Label other) {
-		return Double.compare(this.getCoutTotal(), other.getCoutTotal());
-		/*if (x == 0) 
-			return Double.compare(this.getCoutSansDest(), other.getCoutSansDest());
+		int x = Double.compare(this.getCoutTotal(), other.getCoutTotal());
+		if (x == 0) 
+			return Double.compare(this.getCout(), other.getCout());
 		else
-			return x;*/
+			return x;
 	}
 	
 	

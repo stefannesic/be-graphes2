@@ -9,8 +9,13 @@ public class LabelStar extends Label implements Comparable<Label>  {
 	
 	// get total cost
 	public double getCoutTotal() {
-			double d = Point.distance(this.getSommetCourant().getPoint(), dest.getPoint());
-			return this.cout + (d/((float)maxSpeed));
+		double d = Point.distance(this.getSommetCourant().getPoint(), dest.getPoint());
+		/*System.out.println("Distance is "+d);
+		System.out.println("Speed is "+maxSpeed);
+		System.out.println("Distance over speed is "+(d/maxSpeed));
+		System.out.println("Distance over speed with cast is "+(float)(d/maxSpeed));
+		System.out.println("Cost + heuristic is "+(this.cout+(d/maxSpeed)));*/
+		return this.cout+(d/maxSpeed);
 	}
 	
 	public static void setDest(Node d) {
@@ -20,4 +25,5 @@ public class LabelStar extends Label implements Comparable<Label>  {
 	public static void setMaxSpeed(int sp) {
 		LabelStar.maxSpeed = sp;
 	}
+	
 }
