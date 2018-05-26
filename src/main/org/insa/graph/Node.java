@@ -63,7 +63,7 @@ public final class Node implements Comparable<Node>, Iterable<Arc> {
 
     // Successors.
     private final ArrayList<Arc> successors;
-
+    
     /**
      * Create a new Node with the given ID corresponding to the given Point with an
      * empty list of successors.
@@ -85,7 +85,7 @@ public final class Node implements Comparable<Node>, Iterable<Arc> {
     protected void addSuccessor(Arc arc) {
         successors.add(arc);
     }
-
+    
     /**
      * @return ID of this node.
      */
