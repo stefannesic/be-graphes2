@@ -9,6 +9,10 @@ public class ShortestPathSolution extends AbstractSolution {
 
     // Optimal solution.
     private Path path;
+    
+    // Number of nodes marked
+    
+    private int marked = 0;
 
     /**
      * {@inheritDoc}
@@ -39,6 +43,21 @@ public class ShortestPathSolution extends AbstractSolution {
         super(data, status);
         this.path = path;
     }
+    
+    /**
+     * Create a new shortest-path solution.
+     * 
+     * @param data Original input data for this solution.
+     * @param status Status of the solution (FEASIBLE / OPTIMAL).
+     * @param path Path corresponding to the solution.
+     * @param number of nodes marked
+     */
+    public ShortestPathSolution(ShortestPathData data, Status status, Path path, int nbNodesMarked) {
+        super(data, status);
+        this.path = path;
+        this.marked = nbNodesMarked;
+    }
+    
 
     @Override
     public ShortestPathData getInputData() {
@@ -50,6 +69,13 @@ public class ShortestPathSolution extends AbstractSolution {
      */
     public Path getPath() {
         return path;
+    }
+    
+    /**
+     * @return The number of marked nodes of this solution
+     */
+    public int getMarked() {
+        return marked;
     }
 
     @Override

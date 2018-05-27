@@ -52,6 +52,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      	heap.insert(oLabel);
      	
      	
+     	
      	// we have to visit each node, and stop the algorithm if
      	// ...no predecessors are found
      	while (countMarques < nbNodes && !heap.isEmpty()) {
@@ -63,7 +64,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
      		
      		//if current node is destination, we stop
  			if(xLabel.getSommetCourant() == data.getDestination()) {
- 				countMarques = nbNodes;
+ 				break;
  			}
      		
      		// mark the minimum node
@@ -133,7 +134,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Collections.reverse(arcs);
 
 			// Create the final solution.
-			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
+			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs), countMarques);
 		} 
      	
         return solution;

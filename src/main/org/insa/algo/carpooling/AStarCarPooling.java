@@ -56,7 +56,9 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
      	LabelCarPool.setDest(data.getDestination());
      	// for shortest time, set maximum speed in order to have lower bound
      	if (data.getMode() == Mode.TIME) 
-     		LabelCarPool.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());	
+     		LabelCarPool.setMaxSpeed(graph.getGraphInformation().getMaximumSpeed());
+     	else
+     		LabelCarPool.setMaxSpeed(1);
     	// get Label of both origins
      	LabelCarPool originPedLabel = labels.get(data.getOriginPed().getId());
      	LabelCarPool originCarLabel = labels.get(data.getOriginCar().getId());
@@ -78,18 +80,21 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
      	
      	// we have to visit each node, and stop the algorithm if
      	// ...no predecessors are found
-     	while (countMarques < nbNodes && !spPedHeap.isEmpty() && !cpPedHeap.isEmpty() && spCarHeap.isEmpty() && !cpCarHeap.isEmpty()) {
+     	while (countMarques < nbNodes && !spPedHeap.isEmpty() 
+     			&& !cpPedHeap.isEmpty() && spCarHeap.isEmpty() 
+     			&& !cpCarHeap.isEmpty()) {
+     		
      		countMarques++;
      		
      		// retrieve minimum cost node for each origin
-     		if(xPedLabel.getCout() < xPedLabel.getCoutMidPointDest() || xPedLabel == null) {
+     		if(xPedLabel.getCoutTotal() < xPedLabel.getCoutMidPointDest() || xPedLabel == null) {
      			xPedLabel = (LabelCarPool)spPedHeap.deleteMin();
      		}
      		else {
      			xPedLabel = (LabelCarPool)cpPedHeap.deleteMin();
      		}
      		
-     		if(xCarLabel.getCout() < xCarLabel.getCoutMidPointDest() || xCarLabel == null) {
+     		if(xCarLabel.getCoutTotal() < xCarLabel.getCoutMidPointDest() || xCarLabel == null) {
      			xCarLabel = (LabelCarPool)spCarHeap.deleteMin();
      		}
      		else {
@@ -97,8 +102,10 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
      		}
      		
      		//if the nodes are destination, we stop
- 			if(xPedLabel.getSommetCourant() == data.getDestination() && xCarLabel.getSommetCourant() == data.getDestination()) {
+ 			if(xPedLabel.getSommetCourant() == data.getDestination() 
+ 					&& xCarLabel.getSommetCourant() == data.getDestination()) {
  				countMarques = nbNodes;
+ 				continue;
  			}
  			
  			// if the two nodes are the same set meeting node
@@ -113,6 +120,7 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
      		
      		// notify that we have marked it 
      		notifyNodeMarked(xPedLabel.getSommetCourant());
+     		
      		     		
      		// iterate over successors
      		for (Arc arc : xPedLabel.getSommetCourant()) {
@@ -128,20 +136,20 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
          		notifyNodeReached(xPedLabel.getSommetCourant());
      			
      			LabelCarPool yLabel = labels.get(y.getId());
+     			// set other Node for yLabel
+     			yLabel.setOther(xPedLabel.getSommetCourant());
      			
-     			// set other Node on yLabel
-     			yLabel.setOther(xCarLabel.getSommetCourant());
      			
      			// set destination cost for Label     			
      			if (!yLabel.getMarque()) {
-     				double yCout = yLabel.getCoutSansDest();
-     				double xCout = xPedLabel.getCoutSansDest();
+     				double yCout = yLabel.getCout();
+     				double xCout = xPedLabel.getCout();
      				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
      				
-     				if (yLabel.getCoutSansDest() != yCout) { 
+     				if (yLabel.getCout() != yCout) { 
      					// insert node in heap
      					if (yCout == Double.POSITIVE_INFINITY) {
-     						if(yLabel.getCout() < yLabel.getCoutMidPointDest()) {
+     						if(yLabel.getCoutTotal() < yLabel.getCoutMidPointDest()) {
      							spPedHeap.insert(yLabel);
      						}
      						else {
@@ -182,14 +190,14 @@ public class AStarCarPooling extends CarPoolingAlgorithm {
          			         	
          			// set destination cost for Label
          			if (!yLabel.getMarque()) {
-         				double yCout = yLabel.getCoutSansDest();
-         				double xCout = xPedLabel.getCoutSansDest();
+         				double yCout = yLabel.getCout();
+         				double xCout = xPedLabel.getCout();
          				yLabel.setCout(Math.min(yCout, xCout + data.getCost(arc)));
          				
-         				if (yLabel.getCoutSansDest() != yCout) { 
+         				if (yLabel.getCout() != yCout) { 
          					// insert node in heap
          					if (yCout == Double.POSITIVE_INFINITY) {
-         						if(yLabel.getCout() < yLabel.getCoutMidPointDest()) {
+         						if(yLabel.getCoutTotal() < yLabel.getCoutMidPointDest()) {
          							spCarHeap.insert(yLabel);
          						}
          						else {

@@ -8,7 +8,6 @@ import org.insa.algo.AbstractSolution.Status;
 import org.insa.algo.utils.BinaryHeap;
 import org.insa.graph.Arc;
 import org.insa.graph.Graph;
-import org.insa.graph.GraphStatistics;
 import org.insa.graph.Label;
 import org.insa.graph.LabelStar;
 import org.insa.graph.Node;
@@ -78,8 +77,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
      		     		
      		//if current node is destination, we stop
  			if(xLabel.getSommetCourant() == data.getDestination()) {
- 				countMarques = nbNodes;
- 				continue;
+ 				break;
  			}
  			     		
      		
@@ -157,7 +155,7 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
 			Collections.reverse(arcs);
 
 			// Create the final solution.
-			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs));
+			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graph, arcs), countMarques);
 		} 
      	
         return solution;
